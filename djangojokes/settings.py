@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'jokes.apps.JokesConfig',
     'pages.apps.PagesConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'QBABY1!',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
@@ -108,6 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# AUTHENTICATION SETTINGS
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

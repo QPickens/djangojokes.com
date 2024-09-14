@@ -24,7 +24,7 @@ class JobAppView(FormView):
 
         content += '</ol>'
 
-        send_email(to, subject, content)
+        # send_email(to, subject, content)
         return super().form_valid(form)
 
 class JobAppThanksView(TemplateView):

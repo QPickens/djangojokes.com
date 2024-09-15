@@ -4,9 +4,11 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, U
 
 from .models import Joke
 
+from .forms import JokeForm
+
 class JokeCreateView(CreateView):
     model = Joke
-    fields = ['question', 'answer']
+    form_class = JokeForm
 
 class JokeDeleteView(DeleteView):
     model = Joke

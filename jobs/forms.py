@@ -32,17 +32,20 @@ class JobApplicationForm(forms.Form):
             attrs={'placeholder':'https://www.example.com', 'size':'50'}
         )
     )
-    employment_type = forms.CharField()
+    employment_type = forms.ChoiceField(choices=EMPLOYMENT_TYPE)
     start_date = forms.DateField(
         help_text='The earliest date you can start working.',
-        widget=forms.checkboxSelectMultiple(
-            attrs={'checked':True}
-        )
+        widget=forms.SelectDateWidget(
+            years=YEARS,
+            attrs={'style':'width: 31%; display: inline-block; margin: 0 1%'}
+        ),
+        validators=[validate_future_date],
+        error_messages={'past_date': 'Please enter a future date.'}
     )
-    available_days = forms.MultipleChoiceField(
+    available_days = forms.TypedMultipleChoiceField(
         choices=DAYS,
         coerce=int,
-        help_text='Select all days that you can work.',
+        help_text='Check all days that you can work.',
         widget=forms.CheckboxSelectMultiple(
             attrs={'checked':True}
         )

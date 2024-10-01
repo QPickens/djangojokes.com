@@ -8,10 +8,13 @@ from .forms import JokeForm
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-class JokeCreateView(LoginRequiredMixin, CreateView):
+from django.contrib.messages.views import SuccessMessageMixin
+
+class JokeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Joke
     # fields = ['question', 'answer']
     form_class = JokeForm
+    success_message = 'Joke created.'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -31,10 +34,11 @@ class JokeDetailView(DetailView):
 class JokeListView(ListView):
     model = Joke
 
-class JokeUpdateView(UserPassesTestMixin, UpdateView):
+class JokeUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     model = Joke
     # fields = ['question', 'answer']
     form_class = JokeForm
+    success_message = 'Joke updated.'
 
     def test_func(self):
         obj = self.get_object()

@@ -10,6 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django.contrib.messages.views import SuccessMessageMixin
 
+from django.contrib import messages
+
 class JokeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Joke
     # fields = ['question', 'answer']
@@ -24,9 +26,17 @@ class JokeDeleteView(UserPassesTestMixin, DeleteView):
     model = Joke
     success_url = reverse_lazy('jokes:list')
 
+    def delete(self, request, *args, **kwargs):
+        result = super().delete(request, *args, **kwargs)
+        return result
+
     def test_func(self):
         obj = self.get_object()
         return self.request.user == obj.user
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Joke deleted.')
+        return super().form_valid(form)
 
 class JokeDetailView(DetailView):
     model = Joke

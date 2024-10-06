@@ -1,3 +1,4 @@
+from private_storage import urls as private_storage_urls
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -13,7 +14,7 @@ urlpatterns = [
     path('account/', include('allauth.urls')),
 
     # Private Media
-    path('media/private/', include(private_storage.urls)),
+    path('media/private/', include(private_storage_urls)),
 
     # Local Apps
     path('jobs/', include('jobs.urls')),

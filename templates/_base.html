@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +9,7 @@
 <script src="https://kit.fontawesome.com/56e801b86d.js" crossorigin="anonymous"></script>
 <link rel="shortcut icon" type="image/png"
   href="{% static 'image/favicon.png' %}">
+  {% block javascript %}{% endblock %}
 <title>{% block title %}{% endblock %} | Django Jokes</title>
 </head>
 <body>

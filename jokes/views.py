@@ -133,6 +133,7 @@ class JokeListView(ListView):
             qs = qs.filter(user__username=username)
 
         return qs.order_by(ordering)
+        return qs.prefetch_related('category', 'user').order_by(ordering)
 
 class JokeUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     model = Joke

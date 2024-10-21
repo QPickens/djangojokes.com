@@ -96,22 +96,6 @@ class JokeListView(ListView):
             'default_key': 'updated'
         }
 
-    def get_ordering(self):
-        order_fields = self.get_order_fields()
-        default_order_key = order_fields['default_key']
-        order_key = self.request.GET.get('order', default_order_key)
-        direction = self.request.GET.get('direction', 'desc')
-        
-        # If order_key is invalid, use default
-        if order_key not in order_fields:
-            order_key = default_order_key
-        
-        ordering = order_fields[order_key]
-
-        # if direction is 'desc' or is invalid use descending order
-        if direction != 'asc':
-            ordering = '-' + ordering
-
     def get_queryset(self):
         ordering = self.get_ordering()
         qs = Joke.objects.all()
@@ -132,7 +116,6 @@ class JokeListView(ListView):
             username = self.kwargs['username']
             qs = qs.filter(user__username=username)
 
-        return qs.order_by(ordering)
         return qs.prefetch_related('category', 'user').order_by(ordering)
 
 class JokeUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):

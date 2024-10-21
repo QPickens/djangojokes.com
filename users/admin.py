@@ -1,11 +1,12 @@
 from django.contrib import admin
+from common.admin import DjangoJokesAdmin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 CustomUser = get_user_model()
 
 @admin.register(CustomUser)
-class CustomUserAdmin(UserAdmin):
+class CustomUserAdmin(DjangoJokesAdmin, UserAdmin):
     model = CustomUser
 
     add_fieldsets = UserAdmin.add_fieldsets + (
@@ -14,5 +15,6 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'first_name', 'last_name'),
         }),
     )
+
 
 # Register your models here.
